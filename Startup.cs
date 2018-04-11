@@ -19,10 +19,15 @@ namespace GlobalFilterDemo
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc(options => options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()));
+            services.AddMvc(options =>
+            {
+                // This works
+                options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
 
-            // Removing the line above and uncommenting the line below disables anti-forgery validation
-            // services.AddMvc(options => options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>());
+                // These variants don't work
+                // options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
+                // options.Filters.Add(typeof(AutoValidateAntiforgeryTokenAttribute));
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
