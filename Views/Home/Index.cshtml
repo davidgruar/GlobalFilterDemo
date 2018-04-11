@@ -1,0 +1,29 @@
+﻿@using Newtonsoft.Json
+@model NameViewModel
+<div>
+    <h1>Hello @(Model.Name ?? "World")!</h1>
+
+    <h2>Post with anti-forgery token</h2>
+    <form method="post">
+        <label asp-for="Name">What is your name?</label>
+        <input asp-for="Name" />
+        <div>
+            <input type="submit" value="Submit" />
+        </div>
+    </form>
+
+    <h2>Post without anti-forgery token</h2>
+    <!form method="post">
+        <label for="name">What is your name?</label>
+        <input id="name" name="Name" type="text"/>
+        <div>
+            <input type="submit" value="Submit" />
+        </div>
+    </!form>
+    
+    @if (Context.Request.Method == "POST")
+    {
+        <h2>Form data</h2>
+        <pre>@JsonConvert.SerializeObject(Context.Request.Form, Formatting.Indented)</pre>
+    }
+</div>
